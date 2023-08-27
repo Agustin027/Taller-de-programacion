@@ -34,6 +34,29 @@ Type
     sig: listaT;
   End;
 
+Procedure agregaradelante(Var L:listaD;d:detalle);
+
+Var 
+  nue: lista;
+Begin
+  new(nue);
+  nue^.dato := d;
+  nue^.sig := l;
+  l := nue;
+
+End;
+
+Procedure agregaradelanteT(Var l:listaT;t:ticket);
+
+Var 
+  nue: lista;
+Begin
+  new(nue);
+  nue^.dato := t;
+  nue^.sig := l;
+  l := nue;
+
+End;
 Procedure quequilombo(Var l:listaT);
 
 Var 
