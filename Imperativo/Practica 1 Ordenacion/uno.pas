@@ -6,9 +6,6 @@ Const
 
 Type 
 
-  arr = array[1..dimF] Of ventas;
-
-
   codigopr = 1..15;
   maxVentas = 0..99;
 
@@ -17,8 +14,15 @@ Type
     codigop: codigopr;
     cantV: maxVentas;
   End;
+  arr = array[1..dimF] Of ventas;
 
 
+
+  incisoG = Record
+    codigo: integer;
+    cant: integer;
+  End;
+  arrG = array[1..50] Of incisoG;
 
 Procedure leer(Var v:ventas);
 Begin
@@ -52,9 +56,10 @@ End;
 Procedure imprimir (v: arr; diml: integer);
 
 Var 
+  i: integer;
 Begin
 
-  For i:= 1 To diml Do
+  For i:=1 To diml Do
     Begin
       writeln(V.dia);
       writeln(V.codigop);
@@ -86,27 +91,69 @@ End;
 Procedure Eliminar (Var v:arr; Var diml: integer; num1, num2:integer);
 
 Var 
-  i, correr, aux: integer;
+  i,max,min,borrar: integer;
 Begin
   If num1>num2 Then
     Begin
-      correr := num1-num2;
-      aux := num1;
+      max := num1;
+      min := num2;
     End
   Else
     Begin
-      correr := num2-num1+1;
-      aux := num2;
+      max := num2;
+      min := num1;
     End;
 
 
-
+  For i:=1 To diml-1 Do
+    Begin
+      If (v[i]>=min) And (v[i]<=max)Then
+        borrar := borrar+1
+      Else
+        v[i-borrar] = v[i];
+    End;
+  diml := diml-borrar;
 End;
 
+
+Procedure incisoG (Var vg:arrG;Var dimlG:integer; v:arr; diml:integer);
+//aca no ordeno nada por que ya lo ordene en el inciso C
+
+Var 
+  i: integer;
+  j: integeR;
+Begin
+  j := 1;
+  For i:= 1 To diml Do
+    Begin
+      If (v[i].codigop Mod 2=0) Then
+        Begin
+          vg[j].codigo := v[i].codigop;
+          vg[j].cant := v[i].cantV;
+          j := j+1;
+        End;
+    End;
+  dimlG := j;
+End;
+
+Procedure incisoH(vg:arrG;diml:integer);
+
+Var 
+  i: integer;
+Begin
+  For i:=1 To diml Do
+    Begin
+      WriteLn(vg.codigo);
+      WriteLn(vg.cant);
+    End;
+
+End;
 
 Var 
   v: arr;
   diml, num1, num2: integer;
+  vg: arrG;
+  dimlg: integer;
 Begin
 
   cargarV(v,diml);
@@ -118,5 +165,6 @@ Begin
   readln(num2);
   Eliminar(v, diml, num1, num2);
   imprimir(v,diml);
-
+  incisoG(vg, dimlg, v, diml);
+  incisoH(vg,dimlg);
 End.
