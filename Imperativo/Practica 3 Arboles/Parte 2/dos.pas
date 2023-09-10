@@ -62,6 +62,7 @@ Begin
 
 
 
+
 { writeln('ingresar isbn');
   readln(p.isbn);
   If p.isbn<>-1 Then
@@ -77,6 +78,7 @@ Begin
     End;}
 
   //p.isbn := random(10)-1;
+
 
 
 
@@ -356,7 +358,7 @@ Begin
             incisoj(a^.HI,inf,sup);
         End
       Else
-        incisoj := incisoj(a^.Hi,inf,sup);
+        incisoj := incisoj(a^.HD,inf,sup);
     End
   Else
     incisoJ := 0;
@@ -375,6 +377,7 @@ Begin
   //imprimir(a1);
   WriteLn('--------------------------------------------');
   //imprimir2(a2);
+
 
 { WriteLn('--------------------------------------------');
   WriteLn(IncisoB(a1));
