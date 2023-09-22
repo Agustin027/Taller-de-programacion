@@ -63,6 +63,10 @@ Begin
 
 
 
+
+
+
+
 { writeln('ingresar isbn');
   readln(p.isbn);
   If p.isbn<>-1 Then
@@ -78,6 +82,10 @@ Begin
     End;}
 
   //p.isbn := random(10)-1;
+
+
+
+
 
 
 
@@ -377,6 +385,10 @@ Begin
   //imprimir(a1);
   WriteLn('--------------------------------------------');
   //imprimir2(a2);
+
+
+
+
 
 
 { WriteLn('--------------------------------------------');
