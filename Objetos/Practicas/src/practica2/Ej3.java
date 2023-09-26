@@ -10,9 +10,9 @@ public class Ej3 {
          int edad = GeneradorAleatorio.generarInt(100);
          int dias =0;
           int turno=0;
-         while(!nombre.equals("'zzz")&& dias<5 ){
+         while(!nombre.equals("zzz")&& dias<5 ){
             turno =0;
-             while(!nombre.equals("'zzz")&& turno<8){
+             while(!nombre.equals("zzz")&& turno<8){
                  tabla[dias][turno]=new Persona(nombre, dni, edad);
                  nombre = GeneradorAleatorio.generarString(3);
                  dni = GeneradorAleatorio.generarInt(56000000);
