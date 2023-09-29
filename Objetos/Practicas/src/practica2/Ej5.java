@@ -47,7 +47,7 @@ public class Ej5 {
             
         }
            System.out.println("River gano "+riverGana+" partidos");
-           System.out.println("Boca hizo "+golesBoca+" de local");
+           System.out.println("Boca hizo "+golesBoca+" goles de local");
            
     }
     
