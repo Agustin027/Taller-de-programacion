@@ -1,0 +1,48 @@
+programa ej1a
+procesos
+  proceso juntarFlor(ES cFlores:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      cFlores:=cFlores+1
+  fin
+  proceso depositarFlores
+  comenzar
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+  fin
+  proceso recorrerAvenida(ES cFlores:numero ES eSinFlores:numero)
+  comenzar
+    repetir 25
+      si HayFlorEnLaEsquina
+        juntarFlor(cFlores)
+      sino
+        eSinFlores:=eSinFlores+1
+      mover
+  fin
+  
+areas
+  av1: AreaP(1,1,5,100)
+robots
+  robot robot1
+  variables
+    cFlores: numero
+    eSinFlores: numero
+  comenzar
+    cFlores:=0
+    eSinFlores:=0
+    repetir 2
+      recorrerAvenida(cFlores,eSinFlores)
+      depositarFlores
+      Pos(PosAv+2,1)
+    recorrerAvenida(cFlores,eSinFlores)
+    depositarFlores
+    Informar(cFlores)
+    Informar(eSinFlores)
+  fin
+variables
+  r1: robot1
+comenzar 
+  AsignarArea(r1,av1)
+  Iniciar(r1,1,1)
+fin

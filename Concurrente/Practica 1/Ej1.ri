@@ -1,0 +1,30 @@
+programa ej1
+areas
+  avenida1: AreaC(1,1,1,100)
+robots
+  robot robot1
+  variables
+    cantE:numero
+    cantF:numero
+  comenzar
+    cantE:=0
+    cantF:=0
+    repetir 19
+      si HayFlorEnLaEsquina
+        mientras HayFlorEnLaEsquina
+          tomarFlor
+          cantF:=cantF+1
+      sino
+        cantE:=cantE+1
+      mover
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+    Informar(cantE)
+    Informar(cantF)
+  fin
+variables
+  r1:robot1
+comenzar
+  AsignarArea(r1,avenida1)
+  Iniciar(r1,1,1)
+fin

@@ -1,0 +1,57 @@
+programa Ej1B
+procesos
+  proceso tomarFlores(ES num: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      num:=num+1
+  fin
+  proceso recorrer(ES cantFlor: numero)
+  comenzar
+    repetir 9
+      tomarFlores(cantFlor)
+      mover
+    tomarFlores(cantFlor)
+  fin
+areas
+  Area1: AreaP(1,1,1,10)
+  Area2: AreaP(2,11,2,20)
+  AreaF: AreaP(2,1,2,1)
+robots
+  robot recolector
+  variables
+    cantFlor: numero
+  comenzar
+    cantFlor:=0
+    recorrer(cantFlor)
+    EnviarMensaje(cantFlor,fi)
+  fin
+  
+  robot fiscalizador
+  variables
+    cant1,cant2: numero
+    aux: numero
+  comenzar
+    aux:=0
+    RecibirMensaje(cant1,r1)
+    RecibirMensaje(cant2,r2)
+    si cant1>cant2
+      aux:=cant1-cant2
+    sino
+      aux:=cant2-cant1
+    Informar(aux)
+  fin
+
+
+variables
+  fi: fiscalizador
+  r1:recolector
+  r2:recolector
+comenzar
+  AsignarArea(r1,Area1)
+  AsignarArea(r2,Area2)
+  AsignarArea(fi,AreaF)
+  Iniciar(fi,2,1)   
+  Iniciar(r1,1,1) 
+  Iniciar(r2,2,11)
+fin

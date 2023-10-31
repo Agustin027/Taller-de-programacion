@@ -1,0 +1,85 @@
+programa Ej4
+procesos
+  proceso limpiar(ES total:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin
+areas
+  cuadrante : AreaPC(1,1,100,100)
+robots
+  robot fiscalizador
+  variables
+    numR: numero
+    ok:boolean
+  comenzar
+    repetir 10
+      Random(numR,1,4)
+      si (numR = 1)
+        EnviarMensaje(V,r1)
+        EnviarMensaje(25, r1)
+        EnviarMensaje(1, r1)
+      sino
+        si (numR = 2)
+          EnviarMensaje(V,r2)
+          EnviarMensaje(30, r2)
+          EnviarMensaje(1, r2)
+        sino
+          si (numR = 3)
+            EnviarMensaje(V,r3)
+            EnviarMensaje(35, r3)
+            EnviarMensaje(1, r3)
+
+          sino
+            EnviarMensaje(V,r4)
+            EnviarMensaje(40, r4)
+            EnviarMensaje(1, r4)
+    EnviarMensaje(F,r1)
+    EnviarMensaje(F,r2)
+    EnviarMensaje(F,r3)
+    EnviarMensaje(F,r4)
+  fin
+
+  robot recolector
+  variables
+    calleR:numero
+    avenidaR:numero
+    Av:numero
+    C:numero
+    ok:boolean
+    total:numero
+  comenzar
+    RecibirMensaje(ok,Fi)
+    Random(calleR,25,75)
+    Random(avenidaR,25,75)
+    si(ok=V)
+      RecibirMensaje(Av,Fi)
+      RecibirMensaje(C,Fi)
+      Pos(avenidaR,calleR)
+      limpiar(total)
+      Pos(Av,C)
+      EnviarMensaje(V,Fi)
+    sino
+      EnviarMensaje(F,Fi)
+  fin
+
+variables
+  Fi:fiscalizador
+  r1:recolector
+  r2:recolector
+  r3:recolector
+  r4:recolector
+comenzar
+  AsignarArea(Fi,cuadrante)
+  AsignarArea(r1,cuadrante)
+  AsignarArea(r2,cuadrante)
+  AsignarArea(r3,cuadrante)
+  AsignarArea(r4,cuadrante)
+  Iniciar(Fi,2,1)
+  Iniciar(r1,25,1)
+  Iniciar(r2,30,1)
+  Iniciar(r3,35,1)
+  Iniciar(r4,40,1)
+fin
