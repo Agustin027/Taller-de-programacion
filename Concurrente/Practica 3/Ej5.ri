@@ -1,0 +1,50 @@
+programa Ej5 {Esta incompleto}
+areas
+  Area :AreaC(1,1,100,100)
+robots
+  robot corredor
+  variables
+    ok:boolean
+    av,calle:numero
+  comenzar
+    ok := V
+    mientras ok
+      av:=PosAv
+      calle:=PosCa
+      BloquearEsquina(11,11)
+      Pos(11,11)
+      si (HayPapelEnLaEsquina)
+        si(calle<10)
+          ok := V
+          tomarPapel
+          Pos(av,calle)
+          depositarPapel
+          LiberarEsquina(11,11)
+          mover
+        sino
+          Pos(av,calle)
+          ok := F
+          
+      sino
+        Pos(av,calle)
+        ok := F
+        
+  fin
+variables
+  c1:corredor
+  c2:corredor
+  c3:corredor
+  c4:corredor
+comenzar
+  AsignarArea(c1,Area)
+  AsignarArea(c2,Area)
+  AsignarArea(c3,Area)
+  AsignarArea(c4,Area)
+  Iniciar(c1,4,1)
+
+  Iniciar(c2,6,1)
+  
+  Iniciar(c3,8,1)
+  
+  Iniciar(c4,10,1)
+fin

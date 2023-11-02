@@ -1,4 +1,4 @@
-programa Ej4
+programa Ej4 {Esta incompleto}
 procesos
   proceso limpiar(ES total:numero)
   comenzar
@@ -51,18 +51,19 @@ robots
     ok:boolean
     total:numero
   comenzar
-    RecibirMensaje(ok,Fi)
-    Random(calleR,25,75)
-    Random(avenidaR,25,75)
-    si(ok=V)
-      RecibirMensaje(Av,Fi)
-      RecibirMensaje(C,Fi)
-      Pos(avenidaR,calleR)
-      limpiar(total)
-      Pos(Av,C)
-      EnviarMensaje(V,Fi)
-    sino
-      EnviarMensaje(F,Fi)
+    repetir 10
+      RecibirMensaje(ok,Fi)
+      Random(calleR,25,75)
+      Random(avenidaR,25,75)
+      si(ok=V)
+        RecibirMensaje(Av,Fi)
+        RecibirMensaje(C,Fi)
+        Pos(avenidaR,calleR)
+        limpiar(total)
+        Pos(Av,C)
+        EnviarMensaje(V,Fi)
+      sino
+        EnviarMensaje(F,Fi)
   fin
 
 variables

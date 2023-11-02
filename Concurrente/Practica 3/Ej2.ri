@@ -1,0 +1,117 @@
+programa Ej2
+procesos
+
+  proceso juntarFlores(ES cantFlores:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      cantFlores:=cantFlores+1
+  fin
+  proceso juntarPapeles(ES cantPapeles:numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      cantPapeles:=cantPapeles+1
+  fin
+
+  proceso linea(ES largo:numero)
+  comenzar
+    repetir largo
+      mover
+  fin
+
+  proceso girar
+  comenzar
+    derecha
+    derecha
+    derecha
+  fin
+  proceso escalon1(ES largo:numero;ES cantFlores:numero)
+  comenzar
+    linea(largo)
+    derecha
+    juntarFlores(cantFlores)
+    linea(largo)
+    girar
+    juntarFlores(cantFlores)  
+  fin
+  proceso escalon2(ES largo:numero;ES cantPapeles:numero)
+  comenzar
+    linea(largo)
+    girar
+    juntarPapeles(cantPapeles)
+    linea(largo)
+    derecha
+    juntarPapeles(cantPapeles)
+  fin
+areas
+
+  area: AreaC(1,1,100,100)
+robots
+
+  robot robot1
+  variables
+    largo:numero
+    cantFlores:numero
+  comenzar
+    cantFlores:=0
+    largo:=5
+    repetir 4
+      escalon1(largo,cantFlores)
+      largo:=largo-1
+
+    BloquearEsquina(50,50)
+    escalon1(largo,cantFlores)
+    EnviarMensaje(1,rj)
+    girar
+    mover
+    LiberarEsquina(50,50)
+    largo:=2
+    repetir 4
+      escalon1(largo,cantFlores)
+      largo:=largo+1
+    Informar(cantFlores)
+  fin
+
+  robot robot2
+  variables
+    largo:numero
+    cantPapeles:numero
+  comenzar
+    cantPapeles:=0
+    largo:=5
+    repetir 4
+      escalon2(largo,cantPapeles)
+      largo:=largo-1
+    BloquearEsquina(50,50)
+    escalon2(largo,cantPapeles)
+    EnviarMensaje(2,rj)
+    derecha
+    mover
+    LiberarEsquina(50,50)
+    largo:=2
+    repetir 4
+      escalon2(largo,cantPapeles) 
+      largo:=largo+1
+    Informar(cantPapeles)
+  fin
+
+  robot jefe
+  variables
+    id:numero
+  comenzar
+    RecibirMensaje(id,*)
+    Informar(id)
+  fin
+variables
+  r1:robot1
+  r2:robot2
+  rj:jefe
+comenzar
+  AsignarArea(r1,area)
+  AsignarArea(r2,area)
+  AsignarArea(rj,area)
+  Iniciar(r1,1,1)
+  Iniciar(r2,31,1)
+  Iniciar(rj,15,1)
+fin

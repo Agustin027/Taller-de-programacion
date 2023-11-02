@@ -1,0 +1,83 @@
+programa Ej4
+procesos
+  proceso limpiarEsquina
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+areas
+  esquinas:AreaPC(10,10,11,11)
+  esquinasIni:AreaPC(9,9,9,12)
+  areaJf:AreaP(1,1,1,1)
+robots
+  robot trabajador
+  variables
+    ok:boolean
+    av:numero
+    calle:numero
+    id:numero
+  comenzar
+    ok:=V
+    RecibirMensaje(id,jf)
+    av:=PosAv
+    calle:=PosCa
+    mientras ok
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      si HayFlorEnLaEsquina
+        ok:=V
+        tomarFlor
+        Pos(av,calle)
+        LiberarEsquina(10,10)
+        BloquearEsquina(11,11)
+        Pos(11,11)
+        depositarFlor
+        Pos(av,calle)
+        LiberarEsquina(11,11)
+      sino
+        ok:=F
+        Pos(av,calle)
+        EnviarMensaje(ok,jf)
+        EnviarMensaje(id,jf)
+
+  fin
+  robot jefe
+  variables
+    ok:boolean
+    id:numero
+  comenzar
+    EnviarMensaje(1,t1)
+    EnviarMensaje(2,t2)
+    EnviarMensaje(3,t3)
+    EnviarMensaje(4,t4)
+    RecibirMensaje(ok,*)
+    RecibirMensaje(id,*)
+    Informar(id)
+    Pos(11,11)
+    limpiarEsquina
+    Pos(1,1)
+  fin
+variables
+  jf:jefe
+  t1:trabajador
+  t2:trabajador
+  t3:trabajador
+  t4:trabajador
+comenzar
+
+  AsignarArea(jf,esquinas)
+  AsignarArea(jf,areaJf)
+  AsignarArea(t1,esquinas)
+  AsignarArea(t1,esquinasIni)
+  AsignarArea(t2,esquinas)
+  AsignarArea(t2,esquinasIni)
+  AsignarArea(t3,esquinas)
+  AsignarArea(t3,esquinasIni)
+  AsignarArea(t4,esquinas)
+  AsignarArea(t4,esquinasIni)
+  Iniciar(t1,9,9)
+  Iniciar(t2,9,10)
+  Iniciar(t3,9,11)
+  Iniciar(t4,9,12)
+  Iniciar(jf,1,1)
+fin

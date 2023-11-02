@@ -1,7 +1,102 @@
 programa Ej5
 procesos
+
+  proceso depositarFlores
+  comenzar
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+  fin
+
+
+  proceso depositarPapeles
+  comenzar
+    mientras HayPapelEnLaBolsa
+      depositarPapel  
+  fin
+
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+
+  proceso juntarPapeles
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin
+
 areas
-robot
+  Area1: AreaP(1,75,15,80)
+  Area2: AreaP(75,80,80,100)
+  Area3: AreaP(70,10,100,15)
+  Area4: AreaP(10,1,15,10)
+robots
+  robot robot1
+  comenzar
+    derecha
+    repetir 2
+      repetir 14
+        juntarFlores
+        mover
+      depositarFlores
+      Pos(1,80)
+  fin
+  robot robot2
+  variables
+    av:numero
+    calle:numero
+  comenzar
+    av:=75
+    calle:=80
+    repetir 2
+      repetir 19
+        juntarPapeles
+        mover
+      juntarPapeles
+      av:=80
+      Pos(av,calle)
+      depositarPapeles
+  fin
+
+  robot robot3
+  comenzar
+    derecha
+    repetir 2
+      repetir 30
+        juntarFlores
+        mover
+        juntarFlores
+      depositarFlores
+      Pos(70,15)
+  fin
+
+  robot robot4
+  variables
+    av:numero
+  comenzar
+    av:=10
+    repetir 2
+      repetir 9
+        juntarPapeles
+        mover
+      juntarPapeles
+      av:=15
+      Pos(av,1)
+  fin
+
 variables
+  robot1:robot1
+  robot2:robot2
+  robot3:robot3
+  robot4:robot4
 comenzar
+  AsignarArea(robot1,Area1)
+  AsignarArea(robot2,Area2)
+  AsignarArea(robot3,Area3)
+  AsignarArea(robot4,Area4)
+  Iniciar(robot1,1,75)
+  Iniciar(robot2,75,80)
+  Iniciar(robot3,70,10)
+  Iniciar(robot4,10,1)
 fin

@@ -1,0 +1,84 @@
+programa Ej1CyD
+procesos
+  proceso tomarFlores(ES num: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      num:=num+1
+  fin
+  proceso recorrer(ES cantFlor: numero)
+  comenzar
+    repetir 9
+      tomarFlores(cantFlor)
+      mover
+    tomarFlores(cantFlor)
+  fin
+areas
+  Area1: AreaP(1,1,1,10)
+  Area2: AreaP(2,11,2,20)
+  Area3: AreaP(3,21,3,30)
+  Area4: AreaP(4,31,4,40)
+  Area5: AreaP(5,41,5,50)
+  Area6: AreaP(6,51,6,60)
+  AreaF: AreaP(2,1,2,1)
+robots
+  robot recolector
+  variables
+    cantFlor: numero
+    id: numero
+  comenzar
+    RecibirMensaje(id,fi)
+    cantFlor:=0
+    recorrer(cantFlor)
+    EnviarMensaje(id,fi)
+    EnviarMensaje(cantFlor,fi)
+  fin
+  
+  robot fiscalizador
+  variables
+    cant: numero
+    aux: numero
+    id: numero
+    ganador: numero
+  comenzar
+    aux:=-1
+    EnviarMensaje(1,r1)
+    EnviarMensaje(2,r2)
+    EnviarMensaje(3,r3)
+    EnviarMensaje(4,r4)
+    EnviarMensaje(5,r5)
+    EnviarMensaje(6,r6)
+    repetir 6
+      RecibirMensaje(id,*)
+      RecibirMensaje(cant,*)
+      si cant>aux
+        aux:=cant
+        ganador:=id
+    Informar(ganador)
+  fin
+
+
+variables
+  fi: fiscalizador
+  r1:recolector
+  r2:recolector
+  r3:recolector
+  r4:recolector
+  r5:recolector
+  r6:recolector
+comenzar
+  AsignarArea(r1,Area1)
+  AsignarArea(r2,Area2)
+  AsignarArea(r3,Area3)
+  AsignarArea(r4,Area4)
+  AsignarArea(r5,Area5)
+  AsignarArea(r6,Area6)
+  AsignarArea(fi,AreaF)
+  Iniciar(fi,2,1)   
+  Iniciar(r1,1,1) 
+  Iniciar(r2,2,11)
+  Iniciar(r3,3,21)
+  Iniciar(r4,4,31)
+  Iniciar(r5,5,41)
+  Iniciar(r6,6,51)
+fin

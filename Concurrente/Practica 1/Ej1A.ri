@@ -1,4 +1,4 @@
-programa ej1a
+programa Ej1A
 procesos
   proceso juntarFlor(ES cFlores:numero)
   comenzar

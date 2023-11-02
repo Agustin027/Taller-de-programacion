@@ -1,0 +1,84 @@
+programa Ej3
+procesos
+  proceso juntarPapeles(ES cantP: numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      cantP:=cantP+1
+  fin
+  proceso juntarFlores(ES cantF: numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      cantF:=cantF+1
+  fin
+areas
+  AreaA: AreaPC(1,1,20,1)
+  AreaB: AreaPC(1,5,20,5)
+robots
+
+  robot robotA1
+  variables
+    cantP: numero
+  comenzar
+    derecha
+    cantP:=0
+    repetir 9
+      juntarPapeles(cantP)
+      mover
+    juntarPapeles(cantP)
+    EnviarMensaje(cantP,a2)
+  fin
+
+  robot robotA2
+  variables
+    cantP:numero
+  comenzar
+    derecha
+    RecibirMensaje(cantP,a1)
+    repetir 9
+      juntarPapeles(cantP)
+      mover
+    juntarPapeles(cantP)
+    Informar(cantP)
+  fin
+  
+  robot robotB1
+  variables
+    cantF: numero
+  comenzar
+    derecha
+    cantF:=0
+    repetir 9
+      juntarFlores(cantF)
+      mover
+    juntarFlores(cantF)
+    EnviarMensaje(cantF,b2)
+  fin
+  robot robotB2
+  variables
+    cantF: numero
+  comenzar
+    derecha
+    RecibirMensaje(cantF,b1)
+    repetir 9
+      juntarFlores(cantF)
+      mover
+    juntarFlores(cantF)
+    Informar(cantF)
+  fin
+variables
+  a1: robotA1
+  a2: robotA2
+  b1: robotB1
+  b2: robotB2
+comenzar 
+  AsignarArea(a1,AreaA)
+  AsignarArea(a2,AreaA)
+  AsignarArea(b1,AreaB)
+  AsignarArea(b2,AreaB)
+  Iniciar(a1,1,1)
+  Iniciar(a2,11,1)
+  Iniciar(b1,1,5)
+  Iniciar(b2,11,5)
+fin

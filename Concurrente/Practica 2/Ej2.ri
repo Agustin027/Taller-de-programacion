@@ -1,0 +1,93 @@
+programa Ej2
+procesos
+  proceso arriba
+  comenzar
+    derecha
+    derecha
+    derecha
+  fin
+  proceso juntarFlores(ES cant:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      cant:=cant+1
+      tomarFlor
+  fin
+
+  proceso juntarPapeles(ES cant:numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      cant:=cant+1
+      tomarPapel
+  fin
+
+  proceso limpiar(ES cantF:numero;ES cantP:numero)
+  comenzar
+    juntarFlores(cantF)
+    juntarPapeles(cantP)
+  fin
+
+areas
+  Area: AreaPC(1,1,32,6)
+robots
+  robot trabajador
+  variables
+    ancho: numero
+    cantFlores: numero
+    cantPapeles: numero
+    cant:numero
+  comenzar
+    cant:=0
+    repetir 4
+      cantFlores:=0
+      cantPapeles:=0
+      limpiar(cantFlores,cantPapeles)
+      mover
+      derecha
+      RecibirMensaje(ancho,jefe)
+      repetir ancho
+        limpiar(cantFlores,cantPapeles)
+        mover
+      limpiar(cantFlores,cantPapeles)
+      arriba
+      si cantFlores > cantPapeles
+        cant:=cant+1
+    EnviarMensaje(cant,jefe)
+  fin
+
+  robot jefe
+  variables
+    ancho: numero
+    cant1: numero
+    cant2: numero
+    cant3:numero
+    total:numero
+  comenzar
+    repetir 4
+      Random(ancho,1,5)
+      EnviarMensaje(ancho,r1)
+      Random(ancho,1,5)
+      EnviarMensaje(ancho,r2)
+      Random(ancho,1,5)
+      EnviarMensaje(ancho,r3)
+    RecibirMensaje(cant1,*)
+    RecibirMensaje(cant2,*)
+    RecibirMensaje(cant3,*)
+    total:=cant1+cant2+cant3
+    Informar(total)
+  fin
+
+variables
+  jefe:jefe
+  r1:trabajador
+  r2:trabajador
+  r3:trabajador
+comenzar
+  AsignarArea(jefe,Area)
+  AsignarArea(r1,Area)
+  AsignarArea(r2,Area)
+  AsignarArea(r3,Area)
+  Iniciar(jefe,1,1)
+  Iniciar(r1,2,1)
+  Iniciar(r2,7,1)
+  Iniciar(r3,12,1)
+fin
