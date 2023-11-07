@@ -1,0 +1,90 @@
+programa Ej5
+procesos
+  proceso maximo(ES ca:numero; ES id:numero; ES idmax:numero; ES max:numero)
+  comenzar
+    si (ca>max)
+      idmax := id
+      max := ca
+  fin
+areas
+  Area :AreaC(1,1,100,100)
+robots
+  robot corredor
+  variables
+    ok:boolean
+    av,calle:numero
+  comenzar
+    ok := V
+    mientras ok
+      av:=PosAv
+      calle:=PosCa
+      BloquearEsquina(11,11)
+      Pos(11,11)
+      si (HayPapelEnLaEsquina)
+        si(calle<100)
+          ok := V
+          tomarPapel
+          Pos(av,calle)
+          depositarPapel
+          LiberarEsquina(11,11)
+          mover
+        sino
+          Pos(av,calle)
+          LiberarEsquina(11,11)
+          ok := F
+
+      sino
+        Pos(av,calle)
+        LiberarEsquina(11,11)
+        ok := F
+    EnviarMensaje(av,co)
+    EnviarMensaje(calle,co)
+  fin
+  robot coordinador
+  variables
+    ca1,ca2,ca3,ca4:numero
+    ok:boolean
+    id,idmax,max:numero
+  comenzar
+    max := -1
+    repetir 4
+      RecibirMensaje(id,*)
+      si (id=4)
+        RecibirMensaje(ca1,c1)
+        maximo(ca1,id,idmax,max)
+      sino
+        si (id=6)
+          RecibirMensaje(ca2,c2)
+          maximo(ca2,id,idmax,max)
+        sino
+          si (id=8)
+            RecibirMensaje(ca3,c3)
+            maximo(ca3,id,idmax,max)
+          sino
+            si (id=10)
+              RecibirMensaje(ca4,c4)
+              maximo(ca4,id,idmax,max)
+    Informar('robott',idmax)
+  fin
+variables
+  c1:corredor
+  c2:corredor
+  c3:corredor
+  c4:corredor
+  co:coordinador
+comenzar
+  AsignarArea(c1,Area)
+  AsignarArea(c2,Area)
+  AsignarArea(c3,Area)
+  AsignarArea(c4,Area)
+  AsignarArea(co,Area)
+  Iniciar(c1,4,1)
+
+  Iniciar(c2,6,1)
+
+  Iniciar(c3,8,1)
+
+  Iniciar(c4,10,1)
+
+  Iniciar(co,1,1)
+fin
