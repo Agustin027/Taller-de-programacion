@@ -1,86 +1,161 @@
-programa Ej4 {Esta incompleto}
+programa Ej4
 procesos
-  proceso limpiar(ES total:numero)
+  proceso limpiar(ES cantF:numero;ES cantP:numero)
   comenzar
     mientras HayFlorEnLaEsquina
       tomarFlor
+      cantF:=cantF+1
     mientras HayPapelEnLaEsquina
       tomarPapel
+      cantP:=cantP+1
   fin
+
+  proceso maximo (E cant: numero; ES max:numero; E ID:numero; ES idMax:numero)
+  comenzar
+    si (cant > max)
+      max:=cant
+      idMax:=ID
+  fin  
+
 areas
-  cuadrante : AreaPC(1,1,100,100)
+  cuadrante: AreaPC(25,25,75,75)
+  areaJefe: AreaP(1,1,1,1)
+  areaTrabajadores: AreaPC(25,1,40,1)
 robots
-  robot fiscalizador
+  
+  robot trabajador
   variables
-    numR: numero
-    ok:boolean
-  comenzar
-    repetir 10
-      Random(numR,1,4)
-      si (numR = 1)
-        EnviarMensaje(V,r1)
-        EnviarMensaje(25, r1)
-        EnviarMensaje(1, r1)
-      sino
-        si (numR = 2)
-          EnviarMensaje(V,r2)
-          EnviarMensaje(30, r2)
-          EnviarMensaje(1, r2)
-        sino
-          si (numR = 3)
-            EnviarMensaje(V,r3)
-            EnviarMensaje(35, r3)
-            EnviarMensaje(1, r3)
-
-          sino
-            EnviarMensaje(V,r4)
-            EnviarMensaje(40, r4)
-            EnviarMensaje(1, r4)
-    EnviarMensaje(F,r1)
-    EnviarMensaje(F,r2)
-    EnviarMensaje(F,r3)
-    EnviarMensaje(F,r4)
-  fin
-
-  robot recolector
-  variables
+    id:numero
+    av:numero
+    calle:numero
+    avR:numero
     calleR:numero
-    avenidaR:numero
-    Av:numero
-    C:numero
-    ok:boolean
     total:numero
+    cantF:numero
+    cantP:numero
+    ok:boolean
   comenzar
-    repetir 10
-      RecibirMensaje(ok,Fi)
+    RecibirMensaje(id,jf)
+    RecibirMensaje(ok,jf)
+    av:=PosAv
+    calle:=PosCa
+    mientras ok
+      Random(avR,25,75)
       Random(calleR,25,75)
-      Random(avenidaR,25,75)
-      si(ok=V)
-        RecibirMensaje(Av,Fi)
-        RecibirMensaje(C,Fi)
-        Pos(avenidaR,calleR)
-        limpiar(total)
-        Pos(Av,C)
-        EnviarMensaje(V,Fi)
-      sino
-        EnviarMensaje(F,Fi)
+      Pos(avR,calleR)
+      limpiar(cantF,cantP)
+      EnviarMensaje(ok,jf)
+      RecibirMensaje(ok,jf)
+    total:=cantF+cantP
+    EnviarMensaje(id,jf)1
+    EnviarMensaje(total,jf)
+    RecibirMensaje(ok,jf)
+    si ok
+      Pos(50,50)
+    sino
+      Pos(av,calle)
   fin
+
+  robot jefe
+  variables
+    r:numero
+    ok: boolean
+    id:numero
+    idMax:numero
+    max:numero
+    cant1,cant2,cant3,cant4:numero	
+  comenzar
+    EnviarMensaje(1,t1)
+    EnviarMensaje(2,t2)
+    EnviarMensaje(3,t3)
+    EnviarMensaje(4,t4)
+    ok:=V
+
+    repetir 10
+      Random(r,1,4)
+      si r=1
+        EnviarMensaje(ok,t1)
+      sino
+        si r=2
+          EnviarMensaje(ok,t2)
+        sino
+          si r=3
+            EnviarMensaje(ok,t3)
+          sino
+            EnviarMensaje(ok,t4)
+
+      RecibirMensaje(ok,*)
+
+
+    EnviarMensaje(F,t1)
+    EnviarMensaje(F,t2)
+    EnviarMensaje(F,t3)
+    EnviarMensaje(F,t4)
+
+    repetir 4
+      RecibirMensaje(id,*) 
+      si id=1
+        RecibirMensaje(cant1,t1)
+        maximo(cant1,max,id,idMax)
+      sino
+        si id=2
+          RecibirMensaje(cant2,t2)
+          maximo(cant2,max,id,idMax)
+        sino 
+          si id=3
+            RecibirMensaje(cant3,t3)
+            maximo(cant3,max,id,idMax)
+          sino
+            RecibirMensaje(cant4,t4)
+            maximo(cant4,max,id,idMax)
+   
+
+    si idMax=1
+      EnviarMensaje(V,t1)
+      EnviarMensaje(F,t2)
+      EnviarMensaje(F,t3)
+      EnviarMensaje(F,t4)
+    sino
+      si idMax=2
+        EnviarMensaje(F,t1)
+        EnviarMensaje(V,t2)
+        EnviarMensaje(F,t3)
+        EnviarMensaje(F,t4)
+      sino
+        si idMax=3
+          EnviarMensaje(F,t1)
+          EnviarMensaje(F,t2)
+          EnviarMensaje(V,t3)
+          EnviarMensaje(F,t4)
+        sino
+          EnviarMensaje(F,t1)
+          EnviarMensaje(F,t2)
+          EnviarMensaje(F,t3)
+          EnviarMensaje(V,t4)
+
+   
+  fin
+
 
 variables
-  Fi:fiscalizador
-  r1:recolector
-  r2:recolector
-  r3:recolector
-  r4:recolector
+  jf: jefe
+  t1: trabajador
+  t2: trabajador
+  t3: trabajador
+  t4: trabajador
 comenzar
-  AsignarArea(Fi,cuadrante)
-  AsignarArea(r1,cuadrante)
-  AsignarArea(r2,cuadrante)
-  AsignarArea(r3,cuadrante)
-  AsignarArea(r4,cuadrante)
-  Iniciar(Fi,2,1)
-  Iniciar(r1,25,1)
-  Iniciar(r2,30,1)
-  Iniciar(r3,35,1)
-  Iniciar(r4,40,1)
+  AsignarArea(jf,areaJefe)
+  AsignarArea(t1,cuadrante)
+  AsignarArea(t2,cuadrante)
+  AsignarArea(t3,cuadrante)
+  AsignarArea(t4,cuadrante)
+  AsignarArea(t1,areaTrabajadores)
+  AsignarArea(t2,areaTrabajadores)
+  AsignarArea(t3,areaTrabajadores)
+  AsignarArea(t4,areaTrabajadores)
+  Iniciar(jf,1,1)
+  Iniciar(t1,25,1)
+  Iniciar(t2,30,1)
+  Iniciar(t3,35,1)
+  Iniciar(t4,40,1)
 fin

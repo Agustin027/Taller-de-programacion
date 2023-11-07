@@ -1,0 +1,100 @@
+programa Ej1
+procesos
+  proceso juntarFlores(ES contF:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      contF:=contF+1
+  fin
+  proceso juntarPapeles(ES contP:numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      contP:=contP+1
+  
+  fin
+areas
+  area: AreaC(1,1,100,100)
+robots
+  robot rojo
+  variables
+    contF:numero
+  comenzar
+    contF:=0
+    repetir 96
+      juntarFlores(contF)
+      mover
+      
+    juntarFlores(contF)
+    BloquearEsquina(PosAv,98)
+    mover
+    juntarFlores(contF)
+    BloquearEsquina(PosAv,99)
+    mover
+    LiberarEsquina(PosAv,98)
+    juntarFlores(contF)
+    mover
+    juntarFlores(contF)
+    EnviarMensaje(contF,fi)
+  fin
+  robot azul
+  variables
+    contP:numero
+  comenzar
+    contP:=0
+    derecha
+    juntarPapeles(contP)
+    BloquearEsquina(1,PosCa)
+    mover
+    juntarPapeles(contP)
+    BloquearEsquina(2,PosCa)
+    mover
+    LiberarEsquina(1,PosCa)
+    juntarPapeles(contP)
+    mover
+    LiberarEsquina(2,PosCa)
+    juntarPapeles(contP)
+    repetir 96
+      juntarPapeles(contP)
+      mover
+    EnviarMensaje(contP,fi)  
+  fin
+  
+  robot fiscalizador
+  variables
+    cant1,cant2,cant3,cant4,total1,total2:numero
+    id:numero
+  comenzar
+    
+    RecibirMensaje(cant1,r1)       
+    RecibirMensaje(cant2,r2)
+    RecibirMensaje(cant3,a1)
+    RecibirMensaje(cant4,a2)    
+    total1:=cant1+cant2
+    total2:=cant3+cant4
+    
+    si total1=total2
+      Informar('Empate',0)
+    sino
+      si total1>total2
+        Informar('rojo',1)
+      sino
+        Informar('azul',2)
+  fin
+  
+variables
+  r1,r2:rojo
+  a1,a2:azul
+  fi:fiscalizador
+comenzar
+  AsignarArea(r1,area)
+  AsignarArea(r2,area)
+  AsignarArea(a1,area)
+  AsignarArea(a2,area)
+  AsignarArea(fi,area)
+  Iniciar(r1,2,1)
+  Iniciar(r2,3,1)
+  Iniciar(a1,1,98)
+  Iniciar(a2,1,99)
+  Iniciar(fi,1,1)
+fin

@@ -1,0 +1,103 @@
+programa Ej2
+procesos
+
+  proceso procesar(ES cantP:numero)
+  variables
+    av,calle:numero
+  comenzar
+    av:=PosAv
+    calle:=PosCa
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      cantP:=cantP+1
+      si cantP=5
+				BloquearEsquina(50,50)
+        Pos(50,50)
+        mientras HayPapelEnLaBolsa
+          depositarPapel
+        Pos(av,calle)
+        LiberarEsquina(50,50)
+        cantP:=0  
+  fin
+  proceso juntarP(ES papeles:numero;ES cantP:numero)
+  variables
+    cont:numero
+    ok:boolean
+  comenzar 
+    ok:=V
+    mientras ok
+      si HayPapelEnLaEsquina
+        ok:=V
+        tomarPapel
+        cantP:=cantP+1
+      sino
+        ok:=F
+      si cantP=papeles
+        ok:=F
+      si cantP=5
+        ok:=F
+
+
+      
+    si cantP<>papeles
+      mientras HayPapelEnLaBolsa
+        depositarPapel
+      cantP:=0
+  
+  fin
+  
+areas
+  Area:AreaC(1,1,100,100)
+robots
+
+  robot productor
+  variables
+    cantP:numero
+  comenzar
+    cantP:=0
+    repetir 99
+      procesar(cantP)
+      mover
+    procesar(cantP)
+  fin
+  
+  robot consumidor
+  variables
+    papelesR:numero
+    av,calle:numero
+    ok:numero
+    cantP:numero
+  comenzar
+    ok:=8
+    mientras ok<>0
+      av:=PosAv
+      calle:=PosCa
+      Random(papelesR,2,5)
+      BloquearEsquina(50,50)
+      Pos(50,50)
+      juntarP(papelesR,cantP)
+      Pos(av,calle)
+      LiberarEsquina(50,50)
+      si cantP<2
+        ok:=ok-1
+      sino
+        repetir cantP
+          si HayPapelEnLaBolsa
+            depositarPapel
+  fin
+
+variables
+  pr1:productor
+  pr2:productor
+  con1:consumidor
+  con2:consumidor
+comenzar
+  AsignarArea(pr1,Area)
+  AsignarArea(pr2,Area)
+  AsignarArea(con1,Area)
+  AsignarArea(con2,Area)
+  Iniciar(pr1,5,1)
+  Iniciar(pr2,10,1)
+  Iniciar(con1,11,1)
+  Iniciar(con2,12,1)
+fin

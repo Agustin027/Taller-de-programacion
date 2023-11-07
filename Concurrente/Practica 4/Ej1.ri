@@ -1,0 +1,119 @@
+programa Ej1
+procesos
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+areas
+  area: AreaC(1,1,100,100)
+robots
+
+  robot Servidor
+  variables
+    av,calle:numero
+    cantF:numero
+    ok: numero
+    termina: numero
+  comenzar
+    mientras termina<>3
+      RecibirMensaje(av,*)
+      si av=1
+        RecibirMensaje(calle,cli1)
+        RecibirMensaje(cantF,cli1)
+        Pos(av,calle)
+        repetir cantF
+          si HayFlorEnLaBolsa
+            depositarFlor
+        Pos(100,100)
+        EnviarMensaje(0,cli1)
+        RecibirMensaje(ok,cli1)
+        si ok=0
+          termina:=termina+1
+    
+    
+
+
+      sino 
+        si av=2
+          RecibirMensaje(calle,cli2)
+          RecibirMensaje(cantF,cli2)
+          Pos(av,calle)
+          repetir cantF
+            si HayFlorEnLaBolsa
+              depositarFlor
+          Pos(100,100)
+          EnviarMensaje(0,cli2)
+          RecibirMensaje(ok,cli2)
+          si ok=0
+            termina:=termina+1
+        sino
+
+          si av=3
+            RecibirMensaje(calle,cli3)
+            RecibirMensaje(cantF,cli3)
+            Pos(av,calle)
+            repetir cantF
+              si HayFlorEnLaBolsa
+                depositarFlor
+            Pos(100,100)
+            EnviarMensaje(0,cli3)
+            RecibirMensaje(ok,cli3)
+            si ok=0
+              termina:=termina+1
+      
+  fin
+
+
+  robot Cliente
+  variables
+    cantF:numero
+    av,calle:numero
+    ok: numero
+    aux: numero
+  comenzar
+    mientras ok<>0
+      av:=PosAv
+      calle:=PosCa
+      Random(cantF,1,4)
+      si PosCa>=96
+        aux:=100-PosCa
+        cantF:=aux
+      EnviarMensaje(av,sv)
+      EnviarMensaje(calle+1,sv)
+      EnviarMensaje(cantF,sv)
+      RecibirMensaje(ok,sv)
+      Pos(av,calle+1)
+      juntarFlores
+      Pos(av,calle)
+
+      repetir cantF
+        si HayFlorEnLaBolsa
+          depositarFlor
+        mover
+
+      si PosCa<100
+        ok:=1
+      sino
+
+        ok:=0
+
+      EnviarMensaje(ok,sv)
+
+  fin
+
+variables
+  sv: Servidor
+  cli1: Cliente
+  cli2: Cliente
+  cli3: Cliente
+comenzar
+  AsignarArea(sv,area)
+  AsignarArea(cli1,area)
+  AsignarArea(cli2,area)
+  AsignarArea(cli3,area)
+  Iniciar(sv,100,100)
+  Iniciar(cli1,1,1)
+  Iniciar(cli2,2,1)
+  Iniciar(cli3,3,1)
+fin
