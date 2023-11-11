@@ -1,0 +1,116 @@
+programa Ej4
+procesos
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  
+  fin
+  
+  proceso juntarPapeles
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  
+  fin
+  
+  proceso vaciarB
+  comenzar
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+    mientras HayPapelEnLaBolsa
+      depositarPapel
+  fin
+areas
+  cuadrante: AreaPC(2,2,100,100)
+  areaS1: AreaP(2,1,2,1)
+  areaS2:  AreaP(3,1,3,1)
+  areaM:  AreaP(1,1,1,1)
+robots
+  robot master
+  variables
+    tarea:numero
+    av,calle:numero
+    ok1,ok2:boolean
+    id:numero
+  comenzar
+    EnviarMensaje(1,s1)
+    EnviarMensaje(2,s2)
+    ok1:=V
+    ok2:=V
+    repetir 10
+      Random(id,1,2)
+      si(id=1)
+        Random(tarea,1,3)
+        Random(av,2,100)
+        Random(calle,2,100)
+        EnviarMensaje(tarea,s1)
+        EnviarMensaje(av,s1)
+        EnviarMensaje(calle,s1)
+      sino
+        si(id=2)
+          Random(tarea,1,4)
+          Random(av,2,100)
+          Random(calle,2,100)
+          EnviarMensaje(tarea,s2)
+          EnviarMensaje(av,s2)
+          EnviarMensaje(calle,s2)
+    EnviarMensaje(4,s1) 
+    EnviarMensaje(4,s2)    
+  fin
+  
+  
+  robot slave
+  variables
+    ok:boolean
+    tarea:numero
+    av,calle:numero
+    id:numero
+  comenzar
+    ok:=V
+    RecibirMensaje(id,m)
+    mientras ok  
+      RecibirMensaje(tarea,m)
+      si tarea=1
+        RecibirMensaje(av,m)
+        RecibirMensaje(calle,m)
+        Pos(av,calle)
+        juntarFlores
+      sino
+        si tarea=2 
+          RecibirMensaje(av,m)
+          RecibirMensaje(calle,m)
+          Pos(av,calle)
+          juntarPapeles
+         
+        sino
+          si tarea=3
+            RecibirMensaje(av,m)
+            RecibirMensaje(calle,m)
+            Pos(av,calle)
+            vaciarB
+ 
+          sino
+            ok:=F
+          
+  
+  fin
+  
+  
+variables
+  s1,s2:slave
+  m:master
+comenzar
+  AsignarArea(s1,cuadrante)
+  AsignarArea(s1,areaS1)
+
+  AsignarArea(s2,cuadrante)
+  AsignarArea(s2,areaS2)
+
+  AsignarArea(m,areaM)
+  
+  Iniciar(m,1,1)
+  Iniciar(s1,2,1)
+  Iniciar(s2,3,1)
+
+fin

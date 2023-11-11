@@ -1,0 +1,130 @@
+programa Ej3
+procesos
+  proceso juntarP
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin
+  
+areas
+  area:AreaC(1,1,100,100)
+robots
+  robot trabajador
+  variables
+    id,id2:numero
+    cont:numero
+    ok1,ok2:boolean
+  comenzar
+    cont:=0
+    RecibirMensaje(id,co)
+    repetir 99
+      juntarP
+      mover
+      cont:=cont+1
+      si cont=5
+        si id=1
+          EnviarMensaje(id,t2)
+          EnviarMensaje(V,t2)
+          
+          EnviarMensaje(id,t3)
+          EnviarMensaje(V,t3)
+        sino
+          si id=2
+            EnviarMensaje(id,t1)
+            EnviarMensaje(V,t1)
+            
+            EnviarMensaje(id,t3)
+            EnviarMensaje(V,t3)
+          
+          sino
+            EnviarMensaje(id,t1)
+            EnviarMensaje(V,t1)
+            
+            EnviarMensaje(id,t2)
+            EnviarMensaje(V,t2)
+      sino
+        si id=1
+          EnviarMensaje(id,t2)
+          EnviarMensaje(F,t2)
+          
+          EnviarMensaje(id,t3)
+          EnviarMensaje(F,t3)
+        sino
+          si id=2
+            EnviarMensaje(id,t1)
+            EnviarMensaje(F,t1)
+            
+            EnviarMensaje(id,t3)
+            EnviarMensaje(F,t3)
+          
+          sino
+            EnviarMensaje(id,t1)
+            EnviarMensaje(F,t1)
+            
+            EnviarMensaje(id,t2)
+            EnviarMensaje(F,t2)    
+    
+        RecibirMensaje(id2,*)
+        si id2=1
+          RecibirMensaje(ok1,t1)
+        sino
+          si id2=2
+            RecibirMensaje(ok1,t2)
+          sino
+            RecibirMensaje(ok1,t3)
+        
+        si id=1
+          si id2=2
+            RecibirMensaje(id2,t3)
+            RecibirMensaje(ok2,t3)
+          sino
+            RecibirMensaje(id2,t2)
+            RecibirMensaje(ok2,t2)
+        sino
+          si id=2
+            si id2=1
+              RecibirMensaje(id2,t3)
+              RecibirMensaje(ok2,t3)
+            sino
+              RecibirMensaje(id2,t1)
+              RecibirMensaje(ok2,t1)
+          sino
+            si id2=1
+              RecibirMensaje(id2,t2)
+              RecibirMensaje(ok2,t2)
+            sino
+              RecibirMensaje(id2,t1)
+              RecibirMensaje(ok2,t1)
+              
+        si ok1
+          si ok2
+            ok1:=F
+            ok2:=F
+            cont:=0
+  
+  fin
+  
+  
+  robot coordinador
+  comenzar
+    EnviarMensaje(1,t1)
+    EnviarMensaje(2,t2)
+    EnviarMensaje(3,t3)
+  fin
+  
+
+
+
+variables
+  t1,t2,t3:trabajador
+  co:coordinador
+comenzar
+  AsignarArea(t1,area)
+  AsignarArea(t2,area)
+  AsignarArea(t3,area)
+  AsignarArea(co,area)
+  Iniciar(t1,1,1)
+  Iniciar(t2,2,1)
+  Iniciar(t3,3,1)
+  Iniciar(co,4,1)
+fin

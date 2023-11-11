@@ -1,0 +1,34 @@
+programa Ej4
+
+areas
+  area:AreaC(1,1,100,100)
+robots
+
+  robot florero
+  comenzar
+
+
+  fin
+
+  robot fiscalizador
+  comenzar
+  
+
+
+  fin
+
+
+variables
+  f1,f2,f3:florero
+  fi:fiscalizador
+comenzar
+  AsignarArea(f1,area)
+  AsignarArea(f2,area)
+  AsignarArea(f3,area)
+  AsignarArea(fi,area)
+  Iniciar(f1,1,1)
+  Iniciar(f2,2,1)
+  Iniciar(f3,3,1)
+  Iniciar(fi,4,1)
+
+fin

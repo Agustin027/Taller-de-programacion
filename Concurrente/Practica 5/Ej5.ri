@@ -1,0 +1,100 @@
+programa Ej5
+procesos
+  proceso procesar(ES cantP:numero)
+  variables
+    P:numero
+  comenzar
+    Random(P,1,5)
+    BloquearEsquina(100,1)
+    Pos(100,1)
+    repetir P
+      depositarPapel
+    Pos(13,1)
+    LiberarEsquina(100,1)
+    cantP:=P
+  fin
+  proceso recolectar(ES cantP:numero)
+  variables
+    av,calle:numero
+  comenzar
+    av:=PosAv
+    calle:=PosCa
+    BloquearEsquina(100,1)
+    Pos(100,1)
+    repetir cantP
+      tomarPapel
+    Pos(av,calle)
+    LiberarEsquina(100,1)
+  fin
+areas
+  area:AreaC(1,1,100,100)
+robots
+
+  robot servidor
+  variables
+    ok,ok1,ok2,ok3:boolean
+    cantP:numero
+    id:numero
+  comenzar
+    ok:=V
+    mientras ok
+      RecibirMensaje(id,*)
+      si id=1
+        procesar(cantP)
+        EnviarMensaje(cantP,c1)
+        RecibirMensaje(ok1,c1)
+      sino 
+        si id=2
+          procesar(cantP)
+          EnviarMensaje(cantP,c2)
+          RecibirMensaje(ok2,c2)
+        sino
+          procesar(cantP)
+          EnviarMensaje(cantP,c3)
+          RecibirMensaje(ok3,c3)
+
+
+      si ok1=F
+        si ok2=F
+          si ok3=F
+            ok:=F
+  fin
+  
+  
+  robot cliente
+  variables
+    cantP:numero
+    id:numero
+  comenzar
+    repetir 4
+      si PosAv=10
+				id:=1
+        EnviarMensaje(id,sv)
+      sino
+        si PosAv=11
+					id:=2
+          EnviarMensaje(id,sv)
+        sino
+					id:=3
+          EnviarMensaje(id,sv)
+    
+      RecibirMensaje(cantP,sv)
+      recolectar(cantP)
+      EnviarMensaje(V,sv)
+      
+    EnviarMensaje(id,sv)
+    EnviarMensaje(F,sv)
+  fin
+variables
+  c1,c2,c3:cliente
+  sv:servidor
+comenzar
+  AsignarArea(c1,area)
+  AsignarArea(c2,area)
+  AsignarArea(c3,area)
+  AsignarArea(sv,area)
+  Iniciar(c1,10,1)
+  Iniciar(c2,11,1)
+  Iniciar(c3,12,1)
+  Iniciar(sv,13,1)
+fin

@@ -35,7 +35,14 @@ robots
     juntarFlores(contF)
     mover
     juntarFlores(contF)
-    EnviarMensaje(contF,fi)
+    si PosAv=2
+      EnviarMensaje(1,fi)
+      EnviarMensaje(contF,fi)
+    sino
+      si PosAv=3
+        EnviarMensaje(2,fi)
+        EnviarMensaje(contF,fi)
+
   fin
   robot azul
   variables
@@ -57,7 +64,13 @@ robots
     repetir 96
       juntarPapeles(contP)
       mover
-    EnviarMensaje(contP,fi)  
+    si PosCa=98
+      EnviarMensaje(3,fi)
+      EnviarMensaje(contP,fi)
+    sino 
+      si PosCa=99
+        EnviarMensaje(4,fi)
+        EnviarMensaje(contP,fi)
   fin
   
   robot fiscalizador
@@ -65,11 +78,20 @@ robots
     cant1,cant2,cant3,cant4,total1,total2:numero
     id:numero
   comenzar
-    
-    RecibirMensaje(cant1,r1)       
-    RecibirMensaje(cant2,r2)
-    RecibirMensaje(cant3,a1)
-    RecibirMensaje(cant4,a2)    
+    repetir 4
+      RecibirMensaje(id,*)
+      Informar(id)
+      si id=1
+        RecibirMensaje(cant1,r1)
+      sino
+        si id=2
+          RecibirMensaje(cant2,r2)
+        sino
+          si id=3
+            RecibirMensaje(cant3,a1)
+          sino
+            si id=4
+              RecibirMensaje(cant4,a2)
     total1:=cant1+cant2
     total2:=cant3+cant4
     

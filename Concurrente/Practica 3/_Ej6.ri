@@ -1,0 +1,63 @@
+programa Ej6
+procesos
+  proceso juntarF
+  comenzar
+    si HayFlorEnLaEsquina
+      tomarFlor
+  fin
+  proceso juntarP
+  comenzar
+    si HayPapelEnLaEsquina
+      tomarPapel
+  fin
+areas
+  area:AreaC(1,1,100,100)
+robots
+  robot master
+  comenzar
+    EnviarMensaje(1,s1)
+    EnviarMensaje(2,s2)
+    EnviarMensaje(3,s3)
+  fin
+
+  robot slave
+  variables
+    id:numero
+    largo:numero
+  comenzar
+    RecibirMensaje(id,m)
+    si id=1 
+      largo:=6
+    sino 
+      si id=2 
+        largo:=10
+      sino
+        largo:=9
+
+    repetir 4
+      repetir largo
+        mover
+        si id=1 
+          juntarF
+        sino 
+          si id=2 
+            juntarF
+            juntarP
+          sino
+            juntarP
+      derecha       
+  fin
+
+variables
+  s1,s2,s3:slave
+  m:master
+comenzar
+  AsignarArea(s1,area)
+  AsignarArea(s2,area)
+  AsignarArea(s3,area)
+  AsignarArea(m,area)
+  Iniciar(s1,2,2)
+  Iniciar(s2,5,5)
+  Iniciar(s3,9,9)
+  Iniciar(m,50,50)
+fin

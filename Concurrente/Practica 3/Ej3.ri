@@ -73,9 +73,7 @@ robots
     EnviarMensaje(4,t4)
     EnviarMensaje(av,t4)
     EnviarMensaje(calle,t4)
-
-  
-
+    
     repetir 4
       RecibirMensaje(cantFlores,*)
       RecibirMensaje(id,*)

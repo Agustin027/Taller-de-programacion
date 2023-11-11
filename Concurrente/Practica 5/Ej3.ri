@@ -1,0 +1,84 @@
+programa Ej3
+procesos
+  proceso juntarF(ES flores:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina) & (flores < 10)
+      tomarFlor
+      flores:=flores+1
+  fin
+  proceso dejarF
+  comenzar
+    mientras HayFlorEnLaBolsa
+      depositarFlor
+  fin
+areas
+  area: AreaC(1,1,100,100)
+robots
+  robot recolector
+  variables
+    av,ca:numero
+    cantE:numero
+    cantF:numero
+  comenzar
+    derecha
+    cantE:=0
+    cantF:=0
+    repetir 99
+      juntarF(cantF)
+      si((cantF=10)|(cantE=5))
+        BloquearEsquina(10,10)
+        Pos(10,10)
+        dejarF
+        Pos(av,ca)
+        LiberarEsquina(10,10)
+        EnviarMensaje(ca,co)
+        EnviarMensaje(V,co)
+        cantE:=0
+        cantF:=0
+      mover
+      cantE:=cantE+1
+      av:=PosAv
+      ca:=PosCa
+        
+        
+    EnviarMensaje(ca,co)
+    EnviarMensaje(F,co)
+  fin
+  
+  robot cosechador
+  variables
+    id:numero
+    ok:boolean
+    cant:numero
+  comenzar
+    ok:=V
+    mientras(ok)
+      RecibirMensaje(id,*)
+      si id=3
+        RecibirMensaje(ok,r1)
+      sino
+        RecibirMensaje(ok,r2)
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      mientras HayFlorEnLaEsquina
+        tomarFlor
+        cant:=cant+1
+      Pos(1,5)
+      LiberarEsquina(10,10)
+    Informar(cant)
+  fin
+  
+  
+  
+  
+variables
+  r1,r2:recolector
+  co:cosechador
+comenzar
+  AsignarArea(r1,area)
+  AsignarArea(r2,area)
+  AsignarArea(co,area)
+  Iniciar(r1,1,3)
+  Iniciar(r2,1,4)
+  Iniciar(co,1,5)
+fin
